@@ -11,32 +11,55 @@
 
     <div id = 'root'></div>
     <script>
-      const loadData = async () => {
-        const urls = [
-        //companies api
-      "https://acme-users-api-rev.herokuapp.com/api/companies",
-        //products api
-        "https://acme-users-api-rev.herokuapp.com/api/products"
-        ];
-        const responses = await Promise.all(urls.map(url => axios.get(url)));
-        const [companies, products] = responses.map(
-          response => response.data
-        );
+      // const loadData = async () => {
+      //   const urls = [
+      //   //companies api
+      // "https://acme-users-api-rev.herokuapp.com/api/companies",
+      //   //products api
+      //   "https://acme-users-api-rev.herokuapp.com/api/products"
+      //   ];
+      //   const responses = await Promise.all(urls.map(url => axios.get(url)));
+      //   const [companies, products] = responses.map(
+      //     response => response.data
+      //   );
 
-      console.log(products)
-      }
+      // console.log(products)
+      // }
 
 
-      loadData();
-
-        console.log(React);
+      // loadData();
+      // console.log(companies)
+      //   console.log(React);
       //grab from react
         const { Component } = React;
         //grab from react dom
         const { render } = ReactDOM;
 
         class App extends Component {
-                  render(){
+          constructor(){
+            super();
+            this.state = {
+              companies: [],
+              products: [],
+            }
+          }
+          async componentDidMount(){
+            const urls = [
+              //companies api
+              "https://acme-users-api-rev.herokuapp.com/api/companies",
+              //products api
+              "https://acme-users-api-rev.herokuapp.com/api/products"
+              ];
+            const responses = await Promise.all(urls.map(url => axios.get(url)));
+            const [companies, products] = responses.map(
+              response => response.data
+            );
+            this.setState({companies ,products});
+          }
+          render(){
+            
+            const {companies, products} = this.state
+            console.log(companies)
             return React.createElement('hr');
           }
         }
