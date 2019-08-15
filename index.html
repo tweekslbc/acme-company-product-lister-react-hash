@@ -4,27 +4,34 @@
      <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
 <!--react dom-->
      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+<!--axios link-->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
   </head>
   <body>
 
-      <div id = 'root'></div>
-      <script>
-    const loadData = async () => {
-      const urls = [
-       //companies api
-     "https://acme-users-api-rev.herokuapp.com/api/companies",
-      //products api
-      "https://acme-users-api-rev.herokuapp.com/api/products"
-      ];
+    <div id = 'root'></div>
+    <script>
+      const loadData = async () => {
+        const urls = [
+        //companies api
+      "https://acme-users-api-rev.herokuapp.com/api/companies",
+        //products api
+        "https://acme-users-api-rev.herokuapp.com/api/products"
+        ];
+        const responses = await Promise.all(urls.map(url => axios.get(url)));
+        const [companies, products] = responses.map(
+          response => response.data
+        );
+
+      console.log(products)
+      }
 
 
-
-
-
+      loadData();
 
         console.log(React);
       //grab from react
-        const { component } = React;
+        const { Component } = React;
         //grab from react dom
         const { render } = ReactDOM;
 
@@ -34,9 +41,11 @@
           }
         }
 
+
        const root = document.querySelector('#root');
        render(React.createElement(App), root);
-      </script>
+
+    </script>
   </body>
 </html>
 
