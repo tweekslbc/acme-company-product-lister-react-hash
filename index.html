@@ -53,7 +53,7 @@
         };
 
         const ProductList = ({products}) => {
-          const lis =products.map((product,idx) => createElement('li', { key: idx }, product.name));
+          const lis =products.map((product, idx) => createElement('li', { key: idx }, product.name, ' - ', product.description));
           // console.log(props);
           return React.createElement('ul', null, lis);
         };
