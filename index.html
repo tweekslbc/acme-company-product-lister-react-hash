@@ -6,15 +6,29 @@
      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
   </head>
   <body>
+
       <div id = 'root'></div>
       <script>
+    const loadData = async () => {
+      const urls = [
+       //companies api
+     "https://acme-users-api-rev.herokuapp.com/api/companies",
+      //products api
+      "https://acme-users-api-rev.herokuapp.com/api/products"
+      ];
+
+
+
+
+
+
+        console.log(React);
       //grab from react
         const { component } = React;
         //grab from react dom
-        const { render } = ReactDom;
+        const { render } = ReactDOM;
 
-
-        class App extends Component{
+        class App extends Component {
                   render(){
             return React.createElement('hr');
           }
