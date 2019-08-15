@@ -6,6 +6,8 @@
      <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 <!--axios link-->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+     <style>
+     </style>
   </head>
   <body>
 
@@ -31,9 +33,13 @@
       // console.log(companies)
       //   console.log(React);
       //grab from react
-        const { Component } = React;
+        const { Component, createElement } = React;
         //grab from react dom
         const { render } = ReactDOM;
+
+        const Nav = ()=>{
+          return createElement('div', null, React.createElement('a', { href : '#companies'}, 'Companies' ), React.createElement('a', { href : '#products'}, 'Products' ))
+        };
 
         class App extends Component {
           constructor(){
@@ -57,10 +63,17 @@
             this.setState({companies ,products});
           }
           render(){
-            
-            const {companies, products} = this.state
-            console.log(companies)
-            return React.createElement('hr');
+
+            const {companies, products, view } = this.state
+            const nav = createElement(Nav, {companies, products, view});
+            let chosenView;
+            if(view === 'companies'){
+              chosenView = createElement(CompanyList, {companies});
+            }
+            if(view === 'products'){
+              chosenView = createElement(ProductList, {products});
+            }
+            return React.createElement('div', null, nav, chosenView);
           }
         }
 
