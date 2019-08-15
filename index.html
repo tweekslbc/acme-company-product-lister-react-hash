@@ -7,6 +7,11 @@
 <!--axios link-->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
      <style>
+       .nav{
+         display: flex;
+         justify-content: space-around
+
+       }
      </style>
   </head>
   <body>
@@ -37,8 +42,20 @@
         //grab from react dom
         const { render } = ReactDOM;
 
-        const Nav = ()=>{
-          return createElement('div', null, React.createElement('a', { href : '#companies'}, 'Companies' ), React.createElement('a', { href : '#products'}, 'Products' ))
+        const Nav = ({companies, products})=>{
+          return createElement('div', {className: 'nav'}, React.createElement('a', { href : '#companies'}, `Companies (${companies.length})` ), React.createElement('a', { href : '#products'}, `Products (${products.length})` ))
+        };
+
+        const CompanyList = ({companies}) =>{
+          const lis =companies.map((company, idx) => createElement('li', {key: idx}, company.name));
+          // console.log(props);
+          return React.createElement('ul', null, lis);
+        };
+
+        const ProductList = ({products}) => {
+          const lis =products.map((product,idx) => createElement('li', { key: idx }, product.name));
+          // console.log(props);
+          return React.createElement('ul', null, lis);
         };
 
         class App extends Component {
@@ -47,6 +64,7 @@
             this.state = {
               companies: [],
               products: [],
+              view: ''
             }
           }
           async componentDidMount(){
@@ -61,10 +79,17 @@
               response => response.data
             );
             this.setState({companies ,products});
+
+            window.addEventListener('hashchange', ev =>{
+              const view = window.location.hash.slice(1);
+              this.setState({ view })
+
+            })
           }
           render(){
 
             const {companies, products, view } = this.state
+            console.log(companies)
             const nav = createElement(Nav, {companies, products, view});
             let chosenView;
             if(view === 'companies'){
